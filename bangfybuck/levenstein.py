@@ -49,7 +49,7 @@ for noonItem in range(len(noon_titles)):
         'amazon_ref': amazon_ref,
         'amazon_prices': amazon_price
     })
-with open("products.csv", "w", newline="") as file:
+with open("bangfybuck\\products.csv", "w", newline="") as file:
     writer = csv.writer(file)
     field = ["original_product", "best_match", "similarity_score", "noon_ref", "noon_prices", "amazon_ref", "amazon_prices"]
     writer.writerow(field)
