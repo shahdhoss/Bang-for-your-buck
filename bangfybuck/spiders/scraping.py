@@ -31,7 +31,7 @@ class AmazonSpider(scrapy.Spider):
                 yield scrapy.Request(url=next_page_url, callback=self.parse)
         else:
             json_object = json.dumps(self.amazon_data, indent=4)
-            with open("amazon.json", "w") as outfile:
+            with open("bangfybuck\\jsons_and_csvs\\amazon.json", "w") as outfile:
                 outfile.write(json_object)
 
 
@@ -63,6 +63,6 @@ class noonSpider(scrapy.Spider):
                 yield scrapy.Request(url=next_page_url, callback=self.parse)
         else:
             json_object = json.dumps(self.noon_data, indent=4)
-            with open("noon.json", "w") as outfile:
+            with open("bangfybuck\\jsons_and_csvs\\noon.json", "w") as outfile:
                 outfile.write(json_object)
 
