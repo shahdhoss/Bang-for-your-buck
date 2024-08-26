@@ -14,11 +14,10 @@ class AmazonSpider(scrapy.Spider):
         self.page_count += 1 
         names = response.css(".a-size-base-plus.a-color-base.a-text-normal::text").getall()
         prices = response.css(".a-price-whole::text").getall()
-        brand = response.css(".a-size-base-plus.a-color-base::text").getall()
         references = response.css("a.s-no-outline::attr(href)").getall()
         for i in range(min(len(names),len(prices),len(references))):
             item_data = {
-                "name": brand[i]+" "+names[i],
+                "name": names[i],
                 "price": prices[i],
                 "href": response.urljoin(references[i]) 
             }
