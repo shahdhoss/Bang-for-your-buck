@@ -5,7 +5,7 @@ import csv
 def levenshtein_ratio(s1, s2):
     return Levenshtein.ratio(s1, s2)
 
-with open('bangfybuck\\jsons_and_csvs\\amazon.json') as amazon_file:
+with open('bang-for-your-buck\\bangfybuck\\amazon.json') as amazon_file:
     amazon_json = json.load(amazon_file)
 amazon_titles = []
 amazon_prices = []
@@ -15,7 +15,7 @@ for item in amazon_json:
     amazon_prices.append(item['price'])
     amazon_prod.append(item['href'])
 
-with open("bangfybuck\\jsons_and_csvs\\noon.json") as noon_file:
+with open("bang-for-your-buck\\bangfybuck\\noon.json") as noon_file:
     noon_json = json.load(noon_file)
 noon_titles = []
 prices = []
@@ -49,7 +49,7 @@ for noonItem in range(len(noon_titles)):
         'amazon_ref': amazon_ref,
         'amazon_prices': amazon_price
     })
-with open("bangfybuck\\jsons_and_csvs\\products.csv", "w", newline="") as file:
+with open("bang-for-your-buck\\bangfybuck\\products.csv", "w", newline="") as file:
     writer = csv.writer(file)
     field = ["original_product", "best_match", "similarity_score", "noon_ref", "noon_prices", "amazon_ref", "amazon_prices"]
     writer.writerow(field)

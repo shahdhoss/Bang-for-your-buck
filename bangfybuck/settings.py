@@ -13,10 +13,8 @@ SPIDER_MODULES = ["bangfybuck.spiders"]
 NEWSPIDER_MODULE = "bangfybuck.spiders"
 
 
-## settings.py
-
-USER_AGENT = 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
-
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+#USER_AGENT = "bangfybuck (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -97,4 +95,3 @@ AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = 5
 AUTOTHROTTLE_MAX_DELAY = 60
 DOWNLOAD_DELAY = 2
-DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
