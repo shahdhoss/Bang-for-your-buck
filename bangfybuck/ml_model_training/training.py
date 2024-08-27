@@ -18,5 +18,5 @@ clf.fit(x_train,y_train)
 score=clf.score(x_test,y_test)
 print(score)
 
-# joblib.dump(clf, "spam_or_ham.joblib")
-# joblib.dump(vectorizer, "vectorizer.joblib")
+joblib.dump(clf, "bangfybuck.joblib")
+joblib.dump(vectorizer, "vectorizer.joblib")

@@ -6,7 +6,7 @@ class AmazonSpider(scrapy.Spider):
     name = "amazon"
     allowed_domains = ["amazon.eg"]
 
-    def __init__(self, item: str, page_limit=1, *args, **kwargs):
+    def __init__(self, item: str, page_limit=3, *args, **kwargs):
         super(AmazonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.amazon.eg/s?k={item}&language=en']
         self.amazon_data = []
@@ -41,7 +41,7 @@ class AmazonSpider(scrapy.Spider):
 
 class noonSpider(scrapy.Spider):
     name = "noon"
-    def __init__(self, item: str, page_limit=1, *args, **kwargs):
+    def __init__(self, item: str, page_limit=2, *args, **kwargs):
         super(noonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.noon.com/egypt-en/search/?q={item}&language=en']
         self.noon_data = []  
