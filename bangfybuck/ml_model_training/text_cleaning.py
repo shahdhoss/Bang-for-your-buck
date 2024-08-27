@@ -9,7 +9,6 @@ def preprocess_text(x):
     x=x.to_numpy()
     tokens_list=[]
     for i in range(len(x)):
-        print(x[i])
         string_x=str(x[i])
         text=string_x.lower()
         text=re.sub(r'\d+','',text)

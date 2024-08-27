@@ -27,7 +27,6 @@ class AmazonSpider(scrapy.Spider):
                     "price": price,
                     "href": response.urljoin(reference)
                 }
-                print(item_data)
                 self.amazon_data.append(item_data)
         if self.page_count < self.page_limit:
             next_button = response.xpath("//span[@class='s-pagination-strip']/a[contains(@class, 's-pagination-next')]")

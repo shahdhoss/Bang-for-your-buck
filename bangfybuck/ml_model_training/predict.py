@@ -1,6 +1,6 @@
 import pandas as pd
 import joblib
-from text_cleaning import cleaned_text
+from .text_cleaning import cleaned_text
 
 def load(message,file):
     cleaned_x=cleaned_text(message)
@@ -10,8 +10,10 @@ def load(message,file):
     prediction = loaded_clf.predict(x)
     return prediction
 
-def predicts(message):
-    spam_ham =pd.DataFrame([message])
-    prediction = load(spam_ham,'bangfybuck.joblib')
-    print(f"Message: {spam_ham}", f"Prediction:{prediction}")
+def predicts(product1,product2):
+    x = pd.DataFrame({
+        'product1': [product1],
+        'product2': [product2]
+    })
+    prediction = load(x,'bangfybuck.joblib')
     return prediction
