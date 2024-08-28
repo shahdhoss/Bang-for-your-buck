@@ -6,7 +6,7 @@ class AmazonSpider(scrapy.Spider):
     name = "amazon"
     allowed_domains = ["amazon.eg"]
 
-    def __init__(self, item: str, page_limit=2, *args, **kwargs):
+    def __init__(self, item: str, page_limit=4, *args, **kwargs):
         super(AmazonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.amazon.eg/s?k={item}&language=en']
         self.amazon_data = []
@@ -33,6 +33,10 @@ class AmazonSpider(scrapy.Spider):
             if next_button and next_button.xpath("@aria-disabled").get() != 'true':
                 next_page_url = response.urljoin(next_button.xpath("@href").get())
                 yield scrapy.Request(url=next_page_url, callback=self.parse)
+            else:
+                json_object = json.dumps(self.amazon_data, indent=4)
+                with open("amazon.json", "w") as outfile:
+                    outfile.write(json_object)
         else:
             json_object = json.dumps(self.amazon_data, indent=4)
             with open("amazon.json", "w") as outfile:
@@ -40,7 +44,7 @@ class AmazonSpider(scrapy.Spider):
 
 class noonSpider(scrapy.Spider):
     name = "noon"
-    def __init__(self, item: str, page_limit=2, *args, **kwargs):
+    def __init__(self, item: str, page_limit=4, *args, **kwargs):
         super(noonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.noon.com/egypt-en/search/?q={item}&language=en']
         self.noon_data = []  
@@ -64,8 +68,13 @@ class noonSpider(scrapy.Spider):
             if next_button and next_button.xpath("@aria-disabled").get() != 'true':
                 next_page_url = response.urljoin(next_button.xpath("@href").get())
                 yield scrapy.Request(url=next_page_url, callback=self.parse)
+            else:
+                json_object = json.dumps(self.noon_data, indent=4)
+                with open("noon.json", "w") as outfile:
+                    outfile.write(json_object)
         else:
-            json_object = json.dumps(self.noon_data, indent=4)
-            with open("noon.json", "w") as outfile:
-                outfile.write(json_object)
+                json_object = json.dumps(self.noon_data, indent=4)
+                with open("noon.json", "w") as outfile:
+                    outfile.write(json_object)
+            
 
