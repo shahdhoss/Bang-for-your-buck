@@ -21,9 +21,9 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" method="post" action="#">
-				<input type="text" name="email" id="searchbar" placeholder="What are you looking for " />
-				<input type="submit" value="Search" />
+			<form id="signup-form" method="post" action="{{url_for('comparison')}}">
+				<input type="text" name="email" id="searchbar" placeholder="What are you looking for?" />
+					<input type="submit" value="Search"></input>
 			</form>
 		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 		<script type="text/javascript">
