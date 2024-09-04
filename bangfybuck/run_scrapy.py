@@ -2,7 +2,7 @@ from scrapy.crawler import CrawlerProcess
 from spiders.scraping import noonSpider, AmazonSpider
 from scrapy.utils.project import get_project_settings
 
-item="soap and glory"
+item="planes"
 settings = get_project_settings()
 process = CrawlerProcess(settings)
 process.crawl(noonSpider, item=item)

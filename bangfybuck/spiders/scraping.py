@@ -6,7 +6,7 @@ class AmazonSpider(scrapy.Spider):
     name = "amazon"
     allowed_domains = ["amazon.eg"]
 
-    def __init__(self, item: str, page_limit=1, *args, **kwargs):
+    def __init__(self, item: str, page_limit=4, *args, **kwargs):
         super(AmazonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.amazon.eg/s?k={item}&language=en']
         self.amazon_data = []
@@ -57,15 +57,12 @@ class noonSpider(scrapy.Spider):
     def parse(self, response):
         self.page_count += 1  
         products = response.css(".sc-19767e73-0.bwele")  
-
         for product in products:
             name = product.css(".sc-26c8c6bb-24.cCbHzm::attr(title)").get()
             price = product.css(".amount::text").get()
             reference = product.css("a[id^='productBox']::attr(href)").get()
-            # picture = product.xpath('.//div[contains(@class, "sc-d8caf424-2")]//img/@src').get()
-            print("name: ",name)
-            print("price: ",price)
-
+            # picture = product.css('img::attr(src)').getall()
+            # print(picture)
             if name and price and reference:
                 item_data = {
                     "name": name,
@@ -89,34 +86,5 @@ class noonSpider(scrapy.Spider):
         json_object = json.dumps(self.noon_data, indent=4)
         with open("noon.json", "w") as outfile:
             outfile.write(json_object)
-        print("Data saved to noon.json")
-
-    # def parse(self, response):
-    #     self.page_count += 1  
-    #     names = response.css(".sc-26c8c6bb-24.cCbHzm::attr(title)").getall()
-    #     prices = response.css(".amount::text").getall()
-    #     references = response.css("a[id^='productBox']::attr(href)").getall()
-    #     picture=response.xpath('//div[contains(@class, "sc-d8caf424-2")]//img/@src').getall()
-    #     for i in range(len(names)):
-    #         item_data = {
-    #             "name": names[i],
-    #             "price": prices[i],
-    #             "href": response.urljoin(references[i]),
-    #             'picture': picture[i]
-    #         }
-    #         self.noon_data.append(item_data)
-    #     if self.page_count < self.page_limit:
-    #         next_button = response.xpath("//*[@id='__next']/div/section/div/div/div/div[2]/div[2]/div/ul/li[7]/a")
-    #         if next_button and next_button.xpath("@aria-disabled").get() != 'true':
-    #             next_page_url = response.urljoin(next_button.xpath("@href").get())
-    #             yield scrapy.Request(url=next_page_url, callback=self.parse)
-    #         else:
-    #             json_object = json.dumps(self.noon_data, indent=4)
-    #             with open("noon.json", "w") as outfile:
-    #                 outfile.write(json_object)
-    #     else:
-    #             json_object = json.dumps(self.noon_data, indent=4)
-    #             with open("noon.json", "w") as outfile:
-    #                 outfile.write(json_object)
             
 
