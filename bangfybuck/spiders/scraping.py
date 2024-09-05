@@ -48,7 +48,7 @@ class AmazonSpider(scrapy.Spider):
 
 class noonSpider(scrapy.Spider):
     name = "noon"
-    def __init__(self, item: str, page_limit=4, *args, **kwargs):
+    def __init__(self, item: str, page_limit=1, *args, **kwargs):
         super(noonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.noon.com/egypt-en/search/?q={item}&language=en']
         self.noon_data = []  
@@ -62,16 +62,14 @@ class noonSpider(scrapy.Spider):
             name = product.css(".sc-26c8c6bb-24.cCbHzm::attr(title)").get()
             price = product.css(".amount::text").get()
             reference = product.css("a[id^='productBox']::attr(href)").get()
-            # picture = product.xpath('.//div[contains(@class, "sc-d8caf424-2")]//img/@src').get()
-            print("name: ",name)
-            print("price: ",price)
-
+            picture = product.css('div.sc-d8caf424-2.fJBKzl img::attr(src)').get()
+            print(picture)
             if name and price and reference:
                 item_data = {
                     "name": name,
                     "price": price,
                     "href": response.urljoin(reference),
-                    # 'picture': picture
+                    'picture': picture if picture else 'No image available'
                 }
                 self.noon_data.append(item_data)
 
@@ -80,43 +78,43 @@ class noonSpider(scrapy.Spider):
             if next_button and next_button.xpath("@aria-disabled").get() != 'true':
                 next_page_url = response.urljoin(next_button.xpath("@href").get())
                 yield scrapy.Request(url=next_page_url, callback=self.parse)
-            else:
-                self._save_to_json()
         else:
-            self._save_to_json()
-
-    def _save_to_json(self):
-        json_object = json.dumps(self.noon_data, indent=4)
-        with open("noon.json", "w") as outfile:
-            outfile.write(json_object)
-        print("Data saved to noon.json")
+            json_object = json.dumps(self.noon_data, indent=4)
+            with open("noon.json", "w") as outfile:
+                outfile.write(json_object)
 
     # def parse(self, response):
     #     self.page_count += 1  
-    #     names = response.css(".sc-26c8c6bb-24.cCbHzm::attr(title)").getall()
-    #     prices = response.css(".amount::text").getall()
-    #     references = response.css("a[id^='productBox']::attr(href)").getall()
-    #     picture=response.xpath('//div[contains(@class, "sc-d8caf424-2")]//img/@src').getall()
-    #     for i in range(len(names)):
-    #         item_data = {
-    #             "name": names[i],
-    #             "price": prices[i],
-    #             "href": response.urljoin(references[i]),
-    #             'picture': picture[i]
-    #         }
-    #         self.noon_data.append(item_data)
+    #     products = response.css(".sc-19767e73-0.bwele")  
+
+    #     for product in products:
+    #         name = product.css(".sc-26c8c6bb-24.cCbHzm::attr(title)").get()
+    #         price = product.css(".amount::text").get()
+    #         reference = product.css("a[id^='productBox']::attr(href)").get()
+    #         picture = product.xpath('.//div[contains(@class, "sc-d8caf424-2")]//img/@src').get()
+    #         print("name: ",name)
+    #         print("price: ",price)
+
+    #         if name and price and reference:
+    #             item_data = {
+    #                 "name": name,
+    #                 "price": price,
+    #                 "href": response.urljoin(reference),
+    #                 'picture': picture
+    #             }
+    #             self.noon_data.append(item_data)
+
     #     if self.page_count < self.page_limit:
     #         next_button = response.xpath("//*[@id='__next']/div/section/div/div/div/div[2]/div[2]/div/ul/li[7]/a")
     #         if next_button and next_button.xpath("@aria-disabled").get() != 'true':
     #             next_page_url = response.urljoin(next_button.xpath("@href").get())
     #             yield scrapy.Request(url=next_page_url, callback=self.parse)
     #         else:
-    #             json_object = json.dumps(self.noon_data, indent=4)
-    #             with open("noon.json", "w") as outfile:
-    #                 outfile.write(json_object)
+    #             json_object = json.dumps(self.amazon_data, indent=4)
+    #         with open("noon.json", "w") as outfile:
+    #             outfile.write(json_object)
     #     else:
-    #             json_object = json.dumps(self.noon_data, indent=4)
-    #             with open("noon.json", "w") as outfile:
-    #                 outfile.write(json_object)
-            
+    #         json_object = json.dumps(self.noon_data, indent=4)
+    #         with open("noon.json", "w") as outfile:
+    #             outfile.write(json_object)
 
