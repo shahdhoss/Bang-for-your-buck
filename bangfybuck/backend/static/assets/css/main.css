@@ -27,8 +27,20 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block; }
 
+  img {
+    width: 200px;           /* Fixed width for all images */
+    height: 180px;          /* Fixed height for all images */
+    object-fit: contain;    /* The image will fit inside the container without being distorted */
+    border-radius: 20px;    /* Optional: rounds the corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add shadow */
+    display: block;         /* Ensures no inline spacing issues */
+    background-color: #ffffff; /* Optional: Add a background color to fill space around the image */
+  }
+  
 body {
-  line-height: 1; }
+  line-height: 1;
+  background-color: #242629;
+ }
 
 ol, ul {
   list-style: none; }
@@ -99,7 +111,7 @@ body {
   -webkit-justify-content: center;
   -ms-justify-content: center;
   justify-content: center;
-  background-color: #000;
+  background-color: #16161a;
   padding: 6em 4em 4em 4em; }
   body.is-preload *, body.is-preload *:before, body.is-preload *:after {
     -moz-animation: none !important;
@@ -355,7 +367,7 @@ section.special, article.special {
   text-align: center; }
 
 header p {
-  color: rgba(255, 255, 255, 0.5);
+  color: #94a1b2;
   position: relative;
   margin: 0 0 1.5em 0; }
 
@@ -733,7 +745,7 @@ button,
   -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  background-color: #1cb495;
+  background-color: #7f5af0;
   border-radius: 6px;
   border: 0;
   color: #ffffff !important;
@@ -751,7 +763,7 @@ button,
   input[type="button"]:hover,
   button:hover,
   .button:hover {
-    background-color: #1fcaa7; }
+    background-color: #72757e; }
   input[type="submit"]:active,
   input[type="reset"]:active,
   input[type="button"]:active,

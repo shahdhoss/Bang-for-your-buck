@@ -4,192 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Comparison</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.comparison-container {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1400px; /* Increased the max-width */
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.product-column {
-    width: 48%;
-    background-color: rgba(255, 255, 255, 0.35);
-    padding: 20px; /* Increased padding */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px; /* Increased margin to create more space between columns */
-    border-radius: 10px;
-}
-
-.product {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px; /* Increased margin to create more space between products */
-}
-
-.product img {
-    max-width: 120px; /* Slightly increased the image size */
-    margin-right: 20px; /* Increased space between image and product info */
-}
-
-.product-info h3 {
-    margin: 0;
-    font-size: 18px; /* Slightly increased font size */
-}
-
-.product-info p {
-    margin: 5px 0;
-    color: #aaa; /* Adjusted color for better readability */
-}
-
-.product-info a {
-    color: #007BFF;
-    text-decoration: none;
-}
-
-.product-info a:hover {
-    text-decoration: underline;
-}
-
-    </style>
-    <link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/comp.css') }}" />
     <link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/fontawesome-all.min.css') }}" />
 </head>
 <body>
 
-    <h1>Results</h1>
+    <!-- <h1>Results</h1> -->
     
     <div class="comparison-container">
         <!-- Amazon Products Column -->
-        <div class="product-column">
-            <h2>Amazon Products</h2>
-            <!-- Product 1 -->
+        <div class="column">
+        <img src="{{url_for('static',filename='images/amazon_logo.png')}}" alt="Amazon Logo" class="logo">
+        {% for amazon_prod in data %}  
+        <div class="product-box">
             <div class="product">
-                <img src="amazon-product1.jpg" alt="Product Image">
-                <div class="product-info">
-                    <h3>Amazon Product Name 1</h3>
-                    <p>Price: $XX.XX</p>
-                    <a href="amazon-product1-link" target="_blank">View Product</a>
+        <img src="{{amazon_prod['amazon_pic']}}" alt="Product Image">
+            <div class="product-info">
+                    <h3>{{amazon_prod['amazon_prod']}}</h3>
+                    <p>{{amazon_prod['amazon_price']}} E£</p>
+                    <a href="{{amazon_prod['amazon_ref']}}" target="_blank">View Product</a>
                 </div>
-            </div>
-            <!-- Repeat for more products -->
-            <!-- Product 2 to 6 -->
-            <!-- ... -->
+                </div>
+                </div>
+                <br>
+             {%endfor%}
         </div>
 
         <!-- Noon Products Column -->
-        <div class="product-column">
-            <h2>Noon Products</h2>
-            <!-- Product 1 -->
-            <div class="product">
-                <img src="noon-product1.jpg" alt="Product Image">
+        <div class="column">
+            <img src="{{url_for('static',filename='images/noon_logo.png')}}" alt="Noon Logo" class="logo">
+            {% for noon_prod in data %}
+            <div class="product-box">
+                <div class="product">
+            <img src="noon-product1.jpg" alt="Product Image">
                 <div class="product-info">
-                    <h3>Noon Product Name 1</h3>
-                    <p>Price: $XX.XX</p>
-                    <a href="noon-product1-link" target="_blank">View Product</a>
+                    <h3>{{noon_prod['noon_prod']}}</h3>
+                    <p>{{noon_prod['noon_price']}} E£</p>
+                    <a href="{{noon_prod['noon_ref']}}" target="_blank">View Product</a>
                 </div>
             </div>
-            <!-- Repeat for more products -->
-            <!-- Product 2 to 6 -->
-            <!-- ... -->
+            </div>
+            <br>
+            {%endfor%}
         </div>
     </div>
-    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-		<script type="text/javascript">
-			(function() {
-			
-				"use strict";
-			
-				var $body = document.querySelector('body');
-			
-				// Slideshow Background.
-				(function() {
-			
-					// Settings.
-					var settings = {
-			
-						// Images (in the format of 'url': 'alignment').
-						images: {
-							'{{ url_for("static", filename="images/bg01.jpg") }}': 'center',
-							'{{ url_for("static", filename="images/bg02.jpg") }}': 'center',
-							'{{ url_for("static", filename="images/bg03.jpg") }}': 'center'
-						},
-			
-						// Delay.
-						delay: 6000
-			
-					};
-			
-					// Vars.
-					var pos = 0, lastPos = 0,
-						$wrapper, $bgs = [], $bg,
-						k, v;
-			
-					// Create BG wrapper, BGs.
-					$wrapper = document.createElement('div');
-					$wrapper.id = 'bg';
-					$body.appendChild($wrapper);
-			
-					for (k in settings.images) {
-			
-						// Create BG.
-						$bg = document.createElement('div');
-						$bg.style.backgroundImage = 'url("' + k + '")';
-						$bg.style.backgroundPosition = settings.images[k];
-						$wrapper.appendChild($bg);
-			
-						// Add it to array.
-						$bgs.push($bg);
-			
-					}
-			
-					// Main loop.
-					$bgs[pos].classList.add('visible');
-					$bgs[pos].classList.add('top');
-			
-					// Bail if we only have a single BG or the client doesn't support transitions.
-					if ($bgs.length == 1 || !canUse('transition'))
-						return;
-			
-					window.setInterval(function() {
-			
-						lastPos = pos;
-						pos++;
-			
-						// Wrap to beginning if necessary.
-						if (pos >= $bgs.length)
-							pos = 0;
-			
-						// Swap top images.
-						$bgs[lastPos].classList.remove('top');
-						$bgs[pos].classList.add('visible');
-						$bgs[pos].classList.add('top');
-			
-						// Hide last image after a short delay.
-						window.setTimeout(function() {
-							$bgs[lastPos].classList.remove('visible');
-						}, settings.delay / 2);
-			
-					}, settings.delay);
-			
-				})();
-			
-			})();
-			</script>
 </body>
 </html>

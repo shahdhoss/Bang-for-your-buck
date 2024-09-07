@@ -1,12 +1,7 @@
 <!DOCTYPE HTML>
-<!--
-	Eventually by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
-		<title>Eventually by HTML5 UP</title>
+		<title>Bang for your Buck</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/main.css') }}" />
@@ -21,12 +16,12 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" method="post" action="{{url_for('comparison')}}">
-				<input type="text" name="email" id="searchbar" placeholder="What are you looking for?" />
+			<form id="signup-form" method="post" action="{{url_for('search')}}">
+				<input type="text" name="textarea" id="textarea" placeholder="What are you looking for?" />
 					<input type="submit" value="Search"></input>
 			</form>
 		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 			(function() {
 			
 				"use strict";
@@ -106,7 +101,7 @@
 				})();
 			
 			})();
-			</script>
+			</script> -->
 			
 	</body>
 </html>

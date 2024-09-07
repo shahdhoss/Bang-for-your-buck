@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #242629;
+    color: #fffffe;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: auto; 
+    height: 60px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.comparison-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* Two columns, one for Amazon and one for Noon */
+    gap: 20px;  /* Space between the columns */
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Glass Effect for each product */
+.product-box {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.07); /* Glass effect with semi-transparency */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-box:hover {
+    box-shadow: 0px 0px 20px 1px rgba(255, 187, 118, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+/* Ensure images are next to the text */
+.product {
+    display: flex;
+    align-items: center;
+}
+
+.product img {
+    width: 200px;          /* Fixed width */
+    height: 180px;         /* Fixed height */
+    object-fit: contain;     /* Ensures image doesn't stretch and maintains aspect ratio */
+    border-radius: 12px;   /* Round the corners to match the card style */
+    margin-right: 20px;    /* Space between image and text */
+    background-color: #ffffff;
+}
+
+
+.product-info {
+    max-width: 300px;      /* Limiting the width to keep the layout consistent */
+    min-width: 300px
+}
+
+.product-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+.product-info p {
+    margin: 8px 0;
+    color: #94a1b2;
+    font-size: 16px;
+}
+
+.product-info a {
+    color: #7f5af0;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+
+
+

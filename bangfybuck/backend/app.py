@@ -1,27 +1,32 @@
 from flask import Flask, request, jsonify, render_template
-import subprocess
 import json
+import requests
+# from spiders import run_scrapy
 
 app=Flask(__name__)
 
-# @app.route('/', methods=['GET'])
-# def run_script():
-#     try:
-#         result = subprocess.run(['python', 'backend/ml_model/gmailapi.py'], capture_output=True, text=True)
-#         if result.returncode != 0:
-#             return jsonify(error=result.stderr), 500
-#         predictions = json.loads(result.stdout)
-#         return jsonify(predictions=predictions)
-#     except Exception as e:
-#         return jsonify(error=str(e)), 500
-
 @app.route('/')
 def home():
-    return render_template('index.html')
+   return render_template('index.html')
 
-@app.route('/comparison', methods=['GET', 'POST'])
-def comparison():
-    return render_template('comp.html')
+@app.route('/search', methods=['GET','POST'])
+def search():
+   if request.method == 'POST': 
+      text = request.form.get('textarea')
+   # run_scrapy.search(text) 
+   return render_template('comp.html') 
+
+@app.route('/products',methods=['GET'])
+def products():
+   with open('products.json') as json_file:
+    data = json.load(json_file)
+   return jsonify(data)
+
+@app.route('/result',methods=['GET','POST'])
+def result():
+   response=requests.get('http://127.0.0.1:5000/products')
+   data=response.json()
+   return render_template('comp.html', data=data)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
