@@ -12,12 +12,13 @@ BOT_NAME = "bangfybuck"
 SPIDER_MODULES = ["bangfybuck.spiders"]
 NEWSPIDER_MODULE = "bangfybuck.spiders"
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.111 Safari/537.36'
 
-
-
+DOWNLOADER_MIDDLEWARES = {
+    "bangfybuck.middlewares.BangfybuckDownloaderMiddleware": 544,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,15 +48,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    "bangfybuck.middlewares.BangfybuckSpiderMiddleware": 543,
-#}
-
-# Enable or disable downloader middlewares
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "bangfybuck.middlewares.BangfybuckDownloaderMiddleware": 543,
-#}
+SPIDER_MIDDLEWARES = {
+   "bangfybuck.middlewares.BangfybuckSpiderMiddleware": 543,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -92,9 +87,10 @@ ROBOTSTXT_OBEY = True
 
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = 5
 AUTOTHROTTLE_MAX_DELAY = 60
 DOWNLOAD_DELAY = 2
+RETRY_TIMES = 10  # Increase the retry limit
+RETRY_HTTP_CODES = [503]  # Retry on 503 errors

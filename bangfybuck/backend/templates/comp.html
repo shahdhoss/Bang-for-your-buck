@@ -22,7 +22,7 @@
             <div class="product-info">
                     <h3>{{amazon_prod['amazon_prod']}}</h3>
                     <p>{{amazon_prod['amazon_price']}} E£</p>
-                    <a href="{{amazon_prod['amazon_ref']}}" target="_blank">View Product</a>
+                    <a href="{{amazon_prod['amazon_ref']}}" target="_blank">View Product in Amazon</a>
                 </div>
                 </div>
                 </div>
@@ -36,11 +36,11 @@
             {% for noon_prod in data %}
             <div class="product-box">
                 <div class="product">
-            <img src="noon-product1.jpg" alt="Product Image">
+            <img src="{{noon_prod['noon_pic']}}" alt="Product Image">
                 <div class="product-info">
                     <h3>{{noon_prod['noon_prod']}}</h3>
                     <p>{{noon_prod['noon_price']}} E£</p>
-                    <a href="{{noon_prod['noon_ref']}}" target="_blank">View Product</a>
+                    <a href="{{noon_prod['noon_ref']}}" target="_blank">View Product in Noon</a>
                 </div>
             </div>
             </div>

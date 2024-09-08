@@ -1,13 +1,12 @@
 import scrapy
 import json
 import scrapy.resolver
-from bs4 import BeautifulSoup,SoupStrainer
 
 class AmazonSpider(scrapy.Spider):
     name = "amazon"
     allowed_domains = ["amazon.eg"]
 
-    def __init__(self, item: str, page_limit=4, *args, **kwargs):
+    def __init__(self, item: str, page_limit=1, *args, **kwargs):
         super(AmazonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.amazon.eg/s?k={item}&language=en']
         self.amazon_data = []
@@ -63,12 +62,6 @@ class noonSpider(scrapy.Spider):
             name = product.css(".sc-26c8c6bb-24.cCbHzm::attr(title)").get()
             price = product.css(".amount::text").get()
             reference = product.css("a[id^='productBox']::attr(href)").get()
-            product_html = product.get()
-            soup=BeautifulSoup(product_html, "html.parser")
-            images = soup.find_all('img')
-            for img in images:
-                img_url = img.get('src') or img.get('data-src') or img.get('data-lazy-src')
-                list_of_images.append(img_url)
             if name and price and reference:
                 item_data = {
                     "name": name,
@@ -87,4 +80,3 @@ class noonSpider(scrapy.Spider):
             json_object = json.dumps(self.noon_data, indent=4)
             with open("noon.json", "w") as outfile:
                 outfile.write(json_object)
-
