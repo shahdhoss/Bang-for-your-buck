@@ -2,18 +2,16 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import Levenshtein
 import json
-from scraping import noonSpider, AmazonSpider
 
 def levenshtein_ratio(s1, s2):
     return Levenshtein.ratio(s1, s2)
 
-def search(item):
-    settings = get_project_settings()
-    process = CrawlerProcess(settings)
-    process.crawl(noonSpider, item=item)
-    process.crawl(AmazonSpider, item=item)
-    process.start()  
-
+def search():
+    # settings = get_project_settings()
+    # process = CrawlerProcess(settings)
+    # process.crawl(noonSpider, item=item)
+    # process.crawl(AmazonSpider, item=item)
+    # process.start()  
     with open('amazon.json') as amazon_file:
         amazon_json = json.load(amazon_file)
     amazon_titles = []
@@ -25,8 +23,7 @@ def search(item):
         amazon_prices.append(item['price'])
         amazon_prod.append(item['href'])
         amazon_pic.append(item['picture'])
-
-    with open("noon.json") as noon_file:
+    with open('noon.json') as noon_file:
         noon_json = json.load(noon_file)
     noon_titles = []
     prices = []
@@ -70,4 +67,4 @@ def search(item):
     with open('products.json', "w") as outfile:
         outfile.write(json_object)
 
-search("denmen brush")
+# search("makeup")

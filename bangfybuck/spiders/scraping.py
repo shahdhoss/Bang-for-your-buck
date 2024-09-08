@@ -76,6 +76,10 @@ class noonSpider(scrapy.Spider):
             if next_button and next_button.xpath("@aria-disabled").get() != 'true':
                 next_page_url = response.urljoin(next_button.xpath("@href").get())
                 yield scrapy.Request(url=next_page_url, callback=self.parse)
+            else:
+                json_object = json.dumps(self.noon_data, indent=4)
+                with open("noon.json", "w") as outfile:
+                    outfile.write(json_object)
         else:
             json_object = json.dumps(self.noon_data, indent=4)
             with open("noon.json", "w") as outfile:
