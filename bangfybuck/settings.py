@@ -50,7 +50,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
      'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
-   "bangfybuck.middlewares.BangfybuckSpiderMiddleware": 543,
+     "bangfybuck.middlewares.BangfybuckSpiderMiddleware": 543,
 }
 
 # Enable or disable extensions
@@ -96,11 +96,7 @@ DOWNLOAD_DELAY = 2
 RETRY_TIMES = 10  # Increase the retry limit
 RETRY_HTTP_CODES = [503]  # Retry on 503 errors
 
-#splash stuff
-SPLASH_URL = 'http://localhost:8050'
 DOWNLOADER_MIDDLEWARES = {
-    'scraperapi.ScraperAPIMiddleware': 543,
     "bangfybuck.middlewares.BangfybuckDownloaderMiddleware": 544,
     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
 }
-SCRAPERAPI_API_KEY = '6709dfbf0db5131f6c5dec9f0c8107fb'

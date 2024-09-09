@@ -1,6 +1,5 @@
 import requests
 import json
-
 def noon_api(query):
   url = f"https://www.noon.com/_next/data/schmatalog-781e01b930ebecec8176c4a750aecc023d8fb574/egypt-en/search.json?limit=50&originalQuery={query}&page=1&q={query}&sort%5Bby%5D=popularity&sort%5Bdir%5D=desc&catalog=search"
 
