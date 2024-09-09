@@ -15,10 +15,10 @@ NEWSPIDER_MODULE = "bangfybuck.spiders"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.111 Safari/537.36'
 
-DOWNLOADER_MIDDLEWARES = {
-    "bangfybuck.middlewares.BangfybuckDownloaderMiddleware": 544,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     "bangfybuck.middlewares.BangfybuckDownloaderMiddleware": 544,
+#     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+# }
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -49,6 +49,7 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
+     'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
    "bangfybuck.middlewares.BangfybuckSpiderMiddleware": 543,
 }
 
@@ -94,3 +95,12 @@ AUTOTHROTTLE_MAX_DELAY = 60
 DOWNLOAD_DELAY = 2
 RETRY_TIMES = 10  # Increase the retry limit
 RETRY_HTTP_CODES = [503]  # Retry on 503 errors
+
+#splash stuff
+SPLASH_URL = 'http://localhost:8050'
+DOWNLOADER_MIDDLEWARES = {
+    'scraperapi.ScraperAPIMiddleware': 543,
+    "bangfybuck.middlewares.BangfybuckDownloaderMiddleware": 544,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+SCRAPERAPI_API_KEY = '6709dfbf0db5131f6c5dec9f0c8107fb'
