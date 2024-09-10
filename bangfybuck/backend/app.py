@@ -50,6 +50,7 @@ def search():
       return "Please try again :("
 
 
+
 @app.route('/products',methods=['GET'])
 def products():
    with open('products.json') as json_file:
