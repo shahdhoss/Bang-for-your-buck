@@ -26,14 +26,17 @@ class AmazonSpider(scrapy.Spider):
             brand = product.css(".a-size-base-plus.a-color-base::text").get()
             reference = product.css("a.s-no-outline::attr(href)").get()
             picture = product.css('img.s-image::attr(src)').get()
+            shipping = product.css(".a-row.a-size-base.a-color-secondary.s-align-children-center span span::text").get()
             if not picture:
                 picture = product.css('img.s-image::attr(data-src)').get()
-            if name and price and reference and  picture:
+            if name and price and reference and picture:
+                name=(brand + " " if brand else "") + name
                 item_data = {
-                    "name": (brand + " " if brand else "") + name,
+                    "name": name if len(name) < 70 else name[:70] + '...',
                     "price": price,
                     "href": response.urljoin(reference),
-                    'picture': picture
+                    'picture': picture,
+                    'shipping': 'Free Delivery' if shipping else ""
                 }
                 self.amazon_data.append(item_data)
         if self.page_count < self.page_limit:
@@ -51,7 +54,6 @@ class AmazonSpider(scrapy.Spider):
                 outfile.write(json_object)
 
 
-####################### og scraper
 def search():
     with open('noon.json','r') as noon_json:
         noon_data=json.load(noon_json)
@@ -59,9 +61,12 @@ def search():
         noon_images=json.load(noon_images)
     for fitem in noon_data:
         for sitem  in noon_images:
-            if(fitem['name']==sitem['name']):
-                print(sitem['picture'])
+            if(fitem['name_for_search']==sitem['name']):
                 fitem['picture']=sitem['picture']
+            if ("free_delivery_eligible" in sitem['flags']):
+                fitem['shipping']= 'Free Delivery'
+            else:
+                fitem['shipping']=""
     with open('noon.json', 'w') as noon_json:
         json.dump(noon_data, noon_json, indent=4)  # indent=4 makes it more readable
 
@@ -84,10 +89,12 @@ class noonSpider(scrapy.Spider):
             reference = product.css("a[id^='productBox']::attr(href)").get()
             if name and price and reference:
                 item_data = {
-                    "name": name,
+                    "name": name if len(name) < 70 else name[:70] + '...',
+                    "name_for_search":name,
                     "price": price,
                     "href": response.urljoin(reference),
-                    'picture':None
+                    'picture':None,
+                    'shipping':None
                 }
                 self.noon_data.append(item_data)
         if self.page_count < self.page_limit:

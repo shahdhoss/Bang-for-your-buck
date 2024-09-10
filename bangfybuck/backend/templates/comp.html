@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Comparison</title>
+    <title>Best matches</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/dollasign.png') }}">
     <link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/comp.css') }}" />
     <link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/fontawesome-all.min.css') }}" />
 </head>
@@ -22,6 +23,7 @@
             <div class="product-info">
                     <h3>{{amazon_prod['amazon_prod']}}</h3>
                     <p>{{amazon_prod['amazon_price']}} E£</p>
+                    <p>{{amazon_prod['amazon_ship']}}</p>
                     <a href="{{amazon_prod['amazon_ref']}}" target="_blank">View Product in Amazon</a>
                 </div>
                 </div>
@@ -40,6 +42,7 @@
                 <div class="product-info">
                     <h3>{{noon_prod['noon_prod']}}</h3>
                     <p>{{noon_prod['noon_price']}} E£</p>
+                    <p>{{noon_prod['noon_ship']}}</p>
                     <a href="{{noon_prod['noon_ref']}}" target="_blank">View Product in Noon</a>
                 </div>
             </div>

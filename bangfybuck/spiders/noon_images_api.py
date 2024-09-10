@@ -26,7 +26,8 @@ def noon_api(query):
   for hit in data['pageProps']['catalog']['hits']:
       item_data = {
                       "name": hit['brand']+ ' '+ hit['name'],
-                      'picture': 'https://f.nooncdn.com/p/'+hit['image_key']+'.jpg?format=avif&width=400'
+                      'picture': 'https://f.nooncdn.com/p/'+hit['image_key']+'.jpg?format=avif&width=400',
+                      'flags': hit['flags']
                   }
       noon_data.append(item_data)
 
