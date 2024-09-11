@@ -9,7 +9,6 @@ from spiders import scraping, run_scrapy
 import time
 from twisted.internet import reactor
 from multiprocessing import Process
-from fake_useragent import UserAgent
 
 app=Flask(__name__)
 crawl_runner = CrawlerRunner()
@@ -23,9 +22,6 @@ def wait_for_file(filepath, timeout=60, check_interval=5):
     return False
 
 def run_spiders(item):
-   #  ua = UserAgent()
-   #  uag_random = ua.random
-   #  print("uag random: ",uag_random)
     runner = CrawlerRunner()
     runner.crawl(scraping.AmazonSpider, item=item)
     runner.crawl(scraping.noonSpider, item=item)
