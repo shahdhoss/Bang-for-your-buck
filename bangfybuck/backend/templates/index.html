@@ -1,36 +1,39 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Bang for your Buck</title>
-		<link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ url_for('static', filename='images/dollasign.png') }}">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/main.css') }}" />
-		<link rel="stylesheet"  href="{{ url_for('static', filename='assets/css/fontawesome-all.min.css') }}" />
-	</head>
-	<body class="is-preload">
+<head>
+    <title>Bang for your Buck</title>
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ url_for('static', filename='images/dollasign.png') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome-all.min.css') }}" />
+</head>
+<body class="is-preload">
 
-		<!-- Header -->
-		<header id="header">
-			<h1>Bang for your Buck</h1>
-			<p>Scraping Noon and Amazon to bring you the most budget-friendly online shopping experience!</p>
-		</header>
-		<form id="signup-form" method="post" action="{{url_for('search')}}" onsubmit="showLoader()">
-			<input type="text" name="textarea" id="textarea" placeholder="What are you looking for?" required />
-			<input type="submit" value="Search"></input>
-		</form>
-		<div class="loader" id="loader">
-			<div class="dot"></div>
-		</div>
-	
-		<script>
-			function showLoader() {
-				document.getElementById('header').classList.add('hidden');
-				document.getElementById('signup-form').classList.add('hidden');
-				document.getElementById('loader').style.display = 'block';
-			}
+    <!-- Header -->
+    <header id="header">
+        <h1>Bang for your Buck</h1>
+        <p>Scraping Noon and Amazon to bring you the most budget-friendly online shopping experience!</p>
+    </header>
+
+    <!-- Form -->
+    <form id="signup-form" method="post" action="{{ url_for('search') }}" onsubmit="disableSubmitButton();">
+        <input type="text" name="textarea" id="textarea" placeholder="What are you looking for?" required />
+        <input type="submit" id="submit-btn" value="Search"></input>
+    </form>
+	<script>
+		 function disableSubmitButton() {
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('submit-btn').value = 'Processing...'; // Change button text for user feedback
+        }
+		window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').value = 'Search';
+            }
+        });
 		</script>
-	
-		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-	</body>
+
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+</body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template,redirect,url_for
 import json
 import requests
 from scrapy.crawler import CrawlerRunner
@@ -9,6 +9,7 @@ from spiders import scraping, run_scrapy
 import time
 from twisted.internet import reactor
 from multiprocessing import Process
+from fake_useragent import UserAgent
 
 app=Flask(__name__)
 crawl_runner = CrawlerRunner()
@@ -22,6 +23,9 @@ def wait_for_file(filepath, timeout=60, check_interval=5):
     return False
 
 def run_spiders(item):
+   #  ua = UserAgent()
+   #  uag_random = ua.random
+   #  print("uag random: ",uag_random)
     runner = CrawlerRunner()
     runner.crawl(scraping.AmazonSpider, item=item)
     runner.crawl(scraping.noonSpider, item=item)
@@ -41,11 +45,11 @@ def search():
          p = Process(target=run_spiders, args=(text,))
          p.start()
          p.join()
-         run_scrapy.search() 
-         if wait_for_file('products.json'):
+         run_scrapy.search()
+         if wait_for_file('products.json') & wait_for_file('amazon.json') & wait_for_file('noon.json') & wait_for_file('noon_images.json'):
             return result()
-      else:
-         return "Data not ready yet, please try again later.", 503
+         else:
+            return "Data not ready yet, please try again later.", 503   
    except:
       return "Please try again :("
 

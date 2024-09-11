@@ -12,7 +12,7 @@ def search():
     # settings = get_project_settings()
     # process = CrawlerProcess(settings)
     # process.crawl(noonSpider, item=item)
-    # # process.crawl(AmazonSpider, item=item)
+    # process.crawl(AmazonSpider, item=item)
     # process.start()  
     with open('amazon.json') as amazon_file:
         amazon_json = json.load(amazon_file)
@@ -75,5 +75,4 @@ def search():
     json_object = json.dumps(matched_products, indent=4)
     with open('products.json', "w") as outfile:
         outfile.write(json_object)
-
-# search('makeup')
+#search('makeup')

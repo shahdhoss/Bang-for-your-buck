@@ -4,11 +4,33 @@ import scrapy.resolver
 import scrapy
 import json
 from noon_images_api import noon_api
+from fake_useragent import UserAgent
+
+def search():
+    with open('noon.json','r') as noon_json:
+        noon_data=json.load(noon_json)
+    with open('noon_images.json','r') as noon_images:
+        noon_images=json.load(noon_images)
+    for fitem in noon_data:
+        for sitem  in noon_images:
+            if(fitem['name_for_search']==sitem['name']):
+                fitem['picture']=sitem['picture']
+            if ("free_delivery_eligible" in sitem['flags']):
+                fitem['shipping']= 'Free Delivery'
+            else:
+                fitem['shipping']=""
+    with open('noon.json', 'w') as noon_json:
+        json.dump(noon_data, noon_json, indent=4) 
 
 class AmazonSpider(scrapy.Spider):
     name = "amazon"
     allowed_domains = ["amazon.eg"]
-
+    ua = UserAgent()
+    uag_random = ua.random
+    print("uag random: ",uag_random)
+    custom_settings={
+        'USER_AGENT': uag_random
+    }
     def __init__(self, item: str, page_limit=1, *args, **kwargs):
         super(AmazonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.amazon.eg/s?k={item}&language=en']
@@ -53,22 +75,6 @@ class AmazonSpider(scrapy.Spider):
             with open("amazon.json", "w") as outfile:
                 outfile.write(json_object)
 
-
-def search():
-    with open('noon.json','r') as noon_json:
-        noon_data=json.load(noon_json)
-    with open('noon_images.json','r') as noon_images:
-        noon_images=json.load(noon_images)
-    for fitem in noon_data:
-        for sitem  in noon_images:
-            if(fitem['name_for_search']==sitem['name']):
-                fitem['picture']=sitem['picture']
-            if ("free_delivery_eligible" in sitem['flags']):
-                fitem['shipping']= 'Free Delivery'
-            else:
-                fitem['shipping']=""
-    with open('noon.json', 'w') as noon_json:
-        json.dump(noon_data, noon_json, indent=4)  # indent=4 makes it more readable
 
 class noonSpider(scrapy.Spider):
     name = "noon"
