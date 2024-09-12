@@ -1,9 +1,8 @@
 import Levenshtein
 import json
-from scraping import AmazonSpider,noonSpider
+from .scraping import AmazonSpider,noonSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-
 
 def levenshtein_ratio(s1, s2):
     return Levenshtein.ratio(s1, s2)
@@ -75,4 +74,4 @@ def search():
     json_object = json.dumps(matched_products, indent=4)
     with open('products.json', "w") as outfile:
         outfile.write(json_object)
-#search('makeup')
+# search('makeup')

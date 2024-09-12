@@ -3,7 +3,7 @@ import json
 import scrapy.resolver
 import scrapy
 import json
-from noon_images_api import noon_api
+from .noon_images_api import noon_api
 from fake_useragent import UserAgent
 
 def search():
@@ -25,12 +25,11 @@ def search():
 class AmazonSpider(scrapy.Spider):
     name = "amazon"
     allowed_domains = ["amazon.eg"]
-    ua = UserAgent()
-    uag_random = ua.random
-    print("uag random: ",uag_random)
-    custom_settings={
-        'USER_AGENT': uag_random
-    }
+    # ua = UserAgent()
+    # uag_random = ua.random
+    # custom_settings={
+    #     'USER_AGENT': uag_random
+    # }
     def __init__(self, item: str, page_limit=1, *args, **kwargs):
         super(AmazonSpider, self).__init__(*args, **kwargs)
         self.start_urls = [f'https://www.amazon.eg/s?k={item}&language=en']
